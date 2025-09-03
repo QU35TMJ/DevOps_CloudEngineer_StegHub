@@ -26,7 +26,7 @@ The LAMP stack is a very well-known web development platform, it is open source 
 
 If successful, The console should display your EC2 instance running like this:
 
-![Launch an EC2](images/'ubuntu EC2.JPG')
+![Launch an EC2](images/Ubuntu\ EC2.JPG)
 
 - Change permissions for the private key file:
 
