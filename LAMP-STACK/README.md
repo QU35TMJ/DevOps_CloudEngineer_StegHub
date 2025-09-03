@@ -26,7 +26,7 @@ The LAMP stack is a very well-known web development platform, it is open source 
 
 If successful, The console should display your EC2 instance running like this:
 
-![Launch an EC2](/images/ec2)
+![Launch an EC2](images/'ubuntu ec2'.JPG)
 
 - Change permissions for the private key file:
 
@@ -40,7 +40,7 @@ sudo chmod 0400 <private-key-name>.pem
 ssh -i <private-key-name>.pem ubuntu@<publi-ip-address>
 ```
 
-![SSH into ec2](/images/login)
+![SSH into ec2](images/ec2login.JPG)
 
 
 ### Step 1 - Install Apache and update the firewall
@@ -70,7 +70,7 @@ sudo systemctl enable apache2
 sudo systemctl status apache2
 ```
 
-![Apache running](/images/apache-active)
+![Apache running](images/apache2active.JPG)
 
 
 - Access Apache locally with curl:
@@ -81,7 +81,7 @@ curl http://localhost:80
 ```
 Alternatively, you can access it using the IP address of the ec2
 
-![Apache-server running on web](/images/apache)
+![Apache-server running on web](images/apache2.JPG)
 
 
 ### Step 2 - Install MySQL
@@ -98,7 +98,7 @@ sudo mysql
 ```
 This will connect mysql a the administrative database user root
 
-![Mysql console](images/mysql)
+![Mysql console](images/mysql.JPG)
 
 Following best practice, it is recommended to run a security script that comes pre-installed with MYSQL to remove some insecure default settings and lock down access to the database system. Before we do this, we will set a password for the *root* user. For simplicity, we will use `password123@`. We will be using `mysql_native_password` as the default authentication method:
 - Set MYSQL root user password:
@@ -114,7 +114,7 @@ sudo mysql_secure_installation
 
 Follow and answer the questions as preferred
 
-![Mysql secure Installationl ](/images/mysqlsetup)
+![Mysql secure Installationl ](images/mysqlsecure.JPG)
 
 - Test if you are able to login to the MYSQL shell as root user using the set password:
 
@@ -123,7 +123,7 @@ sudo mysql -u root -p
 ```
 if successful, you should be able to login. You can exit the MySQL monitor by entering `exit`
 
-![Mysql login](/images/mysqllogin)
+![Mysql login](images/mysql.JPG)
 
 
 ### Step 3 - Install PHP
@@ -149,7 +149,7 @@ php --version
 ```
 if php has been successfully installed, you will get an image similar to the one below:
 
-![Php version](/images/phpversion)
+![Php version](images/phpversion.JPG)
 
 Our LAMP is now succesfully installed and ready to be used. We will test our set up with as PHP script. We will follow best practice by setting up an Apache Virtual Host to hold our website files and folders. A virtual host allows us to serve multiple websites on one single host machine.
 
@@ -191,7 +191,7 @@ Add the following to the configuration file:
 
 The virtualhost configuration gives a directive to apache to serve `lampstack` using `/var/www/html/lampstack` as the web root directory.
 
-![Virtualhost conf file](/images/virtulhost)
+![Virtualhost conf file](images/virtualhost.JPG)
 
 - Enable the new virtual host:
 ```sh
@@ -217,7 +217,7 @@ sudo systemctl reload apache2
 
 https://(ec2_ip_address)/lampstack/info.php
 
-![Php webpage](php)
+![Php webpage](images/php.JPG)
 
 
 ## Conclusion
