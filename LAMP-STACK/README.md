@@ -26,7 +26,7 @@ The LAMP stack is a very well-known web development platform, it is open source 
 
 If successful, The console should display your EC2 instance running like this:
 
-![Launch an EC2](images/'ubuntu ec2'.JPG)
+![Launch an EC2](images/'ubuntu EC2.JPG')
 
 - Change permissions for the private key file:
 
@@ -96,9 +96,7 @@ sudo apt install mysql-server -y
 ```sh
 sudo mysql
 ```
-This will connect mysql a the administrative database user root
-
-![Mysql console](images/mysql.JPG)
+This will connect mysql and the administrative database user root
 
 Following best practice, it is recommended to run a security script that comes pre-installed with MYSQL to remove some insecure default settings and lock down access to the database system. Before we do this, we will set a password for the *root* user. For simplicity, we will use `password123@`. We will be using `mysql_native_password` as the default authentication method:
 - Set MYSQL root user password:
