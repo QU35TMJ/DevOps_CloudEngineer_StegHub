@@ -1,4 +1,4 @@
-# LEMP STACK ON AWS
+ # LEMP STACK ON AWS
 
 ## Table of Content
 1. [Introduction](#introduction)
@@ -29,17 +29,17 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
 
 ## Step 0 Prepare Prerequisites
 
-1. **Launch an EC2 Instance**: Start by launching a t2.micro EC2 instance (or any compute engine) running Ubuntu 24.04 LTS or later. Choose a region close to your target audience. (This guide assumes you’re using AWS, but you can adapt these steps for other cloud providers.)
+   **Launch an EC2 Instance**: Start by launching a t2.micro EC2 instance (or any compute engine) running Ubuntu 24.04 LTS or later. Choose a region close to your target audience. (This guide assumes you’re using AWS, but you can adapt these steps for other cloud providers.)
 
    ![Launch the Instance](/images/ubuntuec2.JPG)
 
-  Ensure to Set up your instance’s security group with these inbound rules:
-   - Allow HTTP traffic (port 80) from anywhere.
-   - Allow HTTPS traffic (port 443) from anywhere.
-   - Allow SSH traffic (port 22) from anywhere (this is usually enabled by default).
+   Ensure to Set up your instance’s security group with these inbound rules:
+    - Allow HTTP traffic (port 80) from anywhere.
+    - Allow HTTPS traffic (port 443) from anywhere.
+    - Allow SSH traffic (port 22) from anywhere (this is usually enabled by default).
 
    ```
-   Then connect to the instance with:
+   Connect to the instance with:
    ```bash
    ssh -i "my-ec2-key.pem" ubuntu@<instance-ip>
    ```
@@ -116,7 +116,7 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    ```sql
    EXIT;
    ```
-6. **Create a test database and a test user**
+6. **Create a test database and a test user**:
    ```bash
    CREATE DATABASE testdb;
    CREATE USER 'test'@'localhost' IDENTIFIED BY 'Test@123';
@@ -127,11 +127,11 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
 
 ## Step 3: Install PHP
 
-**Install PHP** and **Check php Version**:
+   **Install PHP** and **Check Version**:
    ```bash
    sudo apt install php-fpm php-mysql -y
    ```
-    ```bash
+   ```bash
    php --version
    ```
    ![Install PHP](images/phpversion.JPG)
@@ -251,9 +251,7 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    ```sql
    SELECT * FROM todo_list;
    ```
-![Query testdb](images/todolist.JPG)
-
-
+   ![Query testdb](images/todolist.JPG)
 
    Exit MySQL:
    ```sql
