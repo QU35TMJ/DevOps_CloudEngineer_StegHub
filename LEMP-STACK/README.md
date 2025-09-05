@@ -29,9 +29,9 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
 
 ## Step 0 Prepare Prerequisites
 
-   **Launch an EC2 Instance**: Start by launching a t2.micro EC2 instance (or any compute engine) running Ubuntu 24.04 LTS or later. Choose a region close to your target audience. (This guide assumes you’re using AWS, but you can adapt these steps for other cloud providers.)
+   **Launch an EC2 Instance**: Start by launching a t3.micro EC2 instance (or any compute engine) running Ubuntu 24.04 LTS or later. Choose a region close to your target audience. (This guide assumes you’re using AWS, but you can adapt these steps for other cloud providers.)
 
-   ![Launch the Instance](/images/ubuntuec2.JPG)
+   ![Launch the Instance](images/ubuntuec2.JPG)
 
    Ensure to Set up your instance’s security group with these inbound rules:
     - Allow HTTP traffic (port 80) from anywhere.
@@ -41,7 +41,7 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    ```
    Connect to the instance with:
    ```bash
-   ssh -i "my-ec2-key.pem" ubuntu@<instance-ip>
+   ssh -i "lemp.pem" ubuntu@<instance-ip>
    ```
    ![SSH into the EC2 Instance](images/ec2login.JPG)
 
@@ -112,6 +112,8 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    ```bash
    sudo mysql -u root -p
    ```
+   ![Test Rppt Login](images/mysqllogin.JPG)
+
    Exit when done:
    ```sql
    EXIT;
@@ -123,11 +125,11 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    GRANT ALL ON testdb.* TO 'test'@'localhost';
    FLUSH PLIVILEGES;
    ```
-   ![Test User and DB](images/testdbuser.JPG) 
+   ![Test User and DB](images/tesdbuser.JPG) 
 
 ## Step 3: Install PHP
 
-   **Install PHP** and **Check Version**:
+1. **Install PHP** and **Check Version**:
    ```bash
    sudo apt install php-fpm php-mysql -y
    ```
@@ -198,7 +200,7 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    ```bash
    sudo systemctl reload nginx
    ```
-   ![Nginx Config](images/nginxconfig.JPG)
+   ![Nginx Config](images/nginxconf.JPG)
 
 ## Step 5: Test PHP Requests
 
@@ -251,7 +253,7 @@ Nginx receives HTTP requests from clients. For dynamic pages, it forwards reques
    ```sql
    SELECT * FROM todo_list;
    ```
-   ![Query testdb](images/todolist.JPG)
+   ![Query testdb](images/todolistdb.JPG)
 
    Exit MySQL:
    ```sql
