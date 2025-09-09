@@ -3,22 +3,19 @@
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Steps](#steps)
+2. [Steps](#steps)
     * [Step 0 Prepare the environment](#step-0-prepare-the-environment)
     * [Step 1 Configure the backend](#step-1-configure-the-backend)
     * [Step 2 Test the Backend code with Postman](#step-2-test-the-backend-code-with-postman)
     * [Step 3 Create the frontend](#step-3-create-the-frontend)
     * [Step 4 Create the React Components](#step-4-create-the-react-components)
     * [Step 5 Run the app](#step-5-run-the-app)
-4. [Conclusion](#conclusion)
+3. [Conclusion](#conclusion)
 
 ## Introduction
 The MERN stack is a popular web development framework that combines four technologies: MongoDB, Express.js, React and Node.js. This stack allows developers to build robust, scalable web applications using Javascript accross both the client and server sides.
 
 The application we will be deploying is a single-page application (SPA), a to-do app having dynamic content.It can be used to add to-do items, display and delete to-do content. 
-
-## Prerequisites
 
 ## Steps
 ## Step 0 Prepare the environment
@@ -31,7 +28,7 @@ The application we will be deploying is a single-page application (SPA), a to-do
 ```
 ssh -i /path/to/key ubuntu@[public-IP]
 ```
-![ssh into instance](ec2login.JPG)
+![ssh into instance](images/ec2login.JPG)
 
 ## Step 1 Configure the backend
 
@@ -318,8 +315,6 @@ I used a weak password for testing purposes. It is ideal to use strong passwords
 ![Allow network access](images/allowaccesstocluster.JPG)
 
 - Choose a connection method: After setting the database user and network access, Close the pop-up. On the dashboard, click "**Get connection string**". Then click "**Done**"
-
-[image Get connection string 2](https://github.com/laraadeboye/Steghub-Devops-Cloud-Engineer/blob/main/MERN-STACK/images/Get%20connection%20string%202.png)
 
 Copy the connection string for use in the application:
 
