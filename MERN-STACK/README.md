@@ -406,6 +406,7 @@ node index.js
 
 ![Database Connected successfully](images/dbconnected.JPG)
 
+Note i faced an error due to the password used having special characters e.g @!. I troubleshooted, updated the connection string in the .env file and started the server again, successfully.
 
 ## Step 2 Test the Backend code with Postman
 We will test the backend code  by using Restful API. We will use Postman to test our API. 
@@ -418,11 +419,11 @@ I will be using the web version as it provides equal functionality. Also, becaus
   
 - In Postman Web, create a new request by clicking "**Send an API Request**".
 
-- Input the endpoint you want to test in the URL field. (A)
+- Input the endpoint you want to test in the URL field.
 
-- Set the method by clicking on the dropdown. (B)
+- Set the method by clicking on the dropdown.
 
-- set the body if necessary. (C) 
+- set the body if necessary.
 To set the body, click on the body tab below the URL field >> Select raw >> add the task in json format. For example:
 
 ```sh
@@ -433,9 +434,7 @@ To set the body, click on the body tab below the URL field >> Select raw >> add 
 ```
 ![Post Output](images/post.JPG)
 
-- Set the Headers: (D)
-
-Key: value (Content-type: application/json)
+- Ensure to set the Headers to Key: value (Content-type: application/json)
 
 
 It is important to test all the endpoints:
