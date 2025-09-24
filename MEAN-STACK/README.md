@@ -40,7 +40,7 @@ Node.js is like the center of our operation. follow the steps below to get it in
    ```
    ![Install nodejs](images/installnodejs.JPG)
 
-The installation step installs both node.js and npm.
+- The installation step installs both node.js and npm.
 
    ![Install nodejs](images/nodeversion.JPG)
 
@@ -90,7 +90,7 @@ The `body-parser` package helps us to process JSON files passed in requests to t
 npm install body-parser
 ```
 
-![npm install body-parser](images/bodypaser.JPG)
+![npm install body-parser](images/bodyparser.JPG)
 
 -Create a folder named `Books` and cd into it:
 
