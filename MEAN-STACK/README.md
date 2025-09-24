@@ -42,9 +42,9 @@ Node.js is like the center of our operation. follow the steps below to get it in
 
 The installation step installs both node.js and npm.
 
-- Update the apt repositories:
-
    ![Install nodejs](images/nodeversion.JPG)
+
+- Update the apt repositories:
 
 ```sh
 sudo apt update -y
