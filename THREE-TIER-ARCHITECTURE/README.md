@@ -16,7 +16,7 @@ We would start by setting up our web server. We will use a RedHat EC2 instance f
 
 1. Launch a RedHat EC2 instance to serve as your Web Server. Create three 10GB volumes in the same Availability Zone (AZ) as your EC2 instance and attach them one by one.
 
-![Web server volumes](images/createvolumes.JPEG)
+![Web server volumes](images/createvolumes.JPG)
 
 2. Now we will go into the Linux terminal! Connect to your instance using SSH:
 
@@ -25,7 +25,7 @@ We would start by setting up our web server. We will use a RedHat EC2 instance f
 ```bash
 lsblk
 ```
-![List of block devices](images/lsblk.JPEG)
+![List of block devices](images/lsblk.JPG)
 
 You should see your new devices, probably named `nvme1n1`, `nvme2n1`, and `nvme3n1` because in my case I used `t3.micro` instance type
 
@@ -42,23 +42,23 @@ sudo parted /dev/nvme1n1 --script mklabel gpt mkpart primary ext4 0% 100%
 sudo parted /dev/nvme2n1 --script mklabel gpt mkpart primary ext4 0% 100%
 sudo parted /dev/nvme3n1 --script mklabel gpt mkpart primary ext4 0% 100%
 ```
-![Partitioning nvme1n1](images/part1.JPEG)
-![Partitioning nvme2n1](images/part2.JPEG)
-![Partitioning nvme3n1](images/part3.JPEG)
+![Partitioning nvme1n1](images/part1.JPG)
+![Partitioning nvme2n1](images/part2.JPG)
+![Partitioning nvme3n1](images/part3.JPG)
 
 After partitioning, check your work with `lsblk`:
 
 ```bash
 lsblk
 ```
-![Updated block device list](images/3parts.JPEG)
+![Updated block device list](images/3parts.JPG)
 
 6. Time to install LVM (Logical Volume Manager). This will help us to manage our storage more flexibly:
 
 ```bash
 sudo yum install lvm2 -y
 ```
-![Installing LVM](images/install_lvm2.JPEG)
+![Installing LVM](images/install_lvm2.JPG)
 
 7. Let's create physical volumes (PVs) from our partitions:
 
@@ -66,7 +66,7 @@ sudo yum install lvm2 -y
 sudo pvcreate /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 sudo pvs
 ```
-![Creating physical volumes](images/createpvs.JPEG)
+![Creating physical volumes](images/createpvs.JPG)
 
 8. Next, we will group these PVs into a volume group (VG). we will call it `webdata-vg`:
 
@@ -74,7 +74,7 @@ sudo pvs
 sudo vgcreate webdata-vg /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 sudo vgs
 ```
-![Creating volume group](images/createvg.JPEG)
+![Creating volume group](images/createvg.JPG)
 
 9. Now for the logical volumes (LVs). We will create two: `apps-lv` for our website data, and `logs-lv` for our logs:
 
@@ -83,7 +83,7 @@ sudo lvcreate -n apps-lv -L 14G webdata-vg
 sudo lvcreate -n logs-lv -L 14G webdata-vg
 sudo lvs
 ```
-![Creating logical volumes](images/createlvs.JPEG)
+![Creating logical volumes](images/createlvs.JPG)
 
 10. Let's double-check our setup:
 
@@ -91,8 +91,8 @@ sudo lvs
 sudo vgdisplay -v
 lsblk
 ```
-![Detailed VG display](images/vgdisplay.JPEG)
-![Updated block device list](images/lsblklv.JPEG)
+![Detailed VG display](images/vgdisplay.JPG)
+![Updated block device list](images/lsblklv.JPG)
 
 Now, let us format these volumes with ext4 filesystem:
 
@@ -137,7 +137,7 @@ sudo mount -a
 sudo systemctl daemon-reload
 df -h
 ```
-![Verifying setup](images/aftermount.JPEG)
+![Verifying setup](images/aftermount.JPG)
 
 Great job! You've successfully set up your web server's storage. In the next step, we'll prepare the database server.
 
@@ -147,7 +147,7 @@ Now, let's set up our database server. The process is similar to the web server,
 
 1. Launch another RedHat EC2 instance for your DB Server. Create and attach three 10GB volumes, just like before.
 
-![DB server volumes](images/dbvolumes.JPEG)
+![DB server volumes](images/dbvolumes.JPG)
 
 2. SSH into your new instance:
 
@@ -156,7 +156,7 @@ Now, let's set up our database server. The process is similar to the web server,
 ```bash
 lsblk
 ```
-![List of block devices](images/lsblkdb.JPEG)
+![List of block devices](images/lsblkdb.JPG)
 
 You should see your new devices, probably named `nvme1n1`, `nvme2n1`, and `nvme3n1` because in my case I used `t3.micro` instance type
 
@@ -173,16 +173,16 @@ sudo parted /dev/nvme1n1 --script mklabel gpt mkpart primary ext4 0% 100%
 sudo parted /dev/nvme2n1 --script mklabel gpt mkpart primary ext4 0% 100%
 sudo parted /dev/nvme3n1 --script mklabel gpt mkpart primary ext4 0% 100%
 ```
-![Partitioning nvme1n1](images/part1.JPEG)
-![Partitioning nvme2n1](images/part2.JPEG)
-![Partitioning nvme3n1](images/part3.JPEG)
+![Partitioning nvme1n1](images/part1.JPG)
+![Partitioning nvme2n1](images/part2.JPG)
+![Partitioning nvme3n1](images/part3.JPG)
 
 After partitioning, check your work with `lsblk`:
 
 ```bash
 lsblk
 ```
-![Updated block device list](images/3parts.JPEG)
+![Updated block device list](images/3parts.JPG)
 
 6. Time to install LVM (Logical Volume Manager). This will help us to manage our storage more flexibly:
 
@@ -190,7 +190,7 @@ lsblk
 sudo yum install lvm2 -y
 sudo lvmdiskscan
 ```
-![Installing LVM](images/diskscan.JPEG)
+![Installing LVM](images/diskscan.JPG)
 
 7. Let's create physical volumes (PVs) from our partitions:
 
@@ -198,7 +198,7 @@ sudo lvmdiskscan
 sudo pvcreate /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 sudo pvs
 ```
-![Creating physical volumes](images/createpvsdb.JPEG)
+![Creating physical volumes](images/createpvsdb.JPG)
 
 8. Next, we will group these PVs into a volume group (VG). we will call it `database-vg`:
 
@@ -206,7 +206,7 @@ sudo pvs
 sudo vgcreate database-vg /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 sudo vgs
 ```
-![Creating volume group](images/createvgdb.JPEG)
+![Creating volume group](images/createvgdb.JPG)
 
 9. Now for the logical volumes (LVs). We will create `db-lv` for our database data:
 
@@ -214,7 +214,7 @@ sudo vgs
 sudo lvcreate -n db-lv -L 20G database-vg
 sudo lvs
 ```
-![Creating logical volumes](images/createlvdb.JPEG)
+![Creating logical volumes](images/createlvdb.JPG)
 
 10. Let's double-check our setup:
 
@@ -241,7 +241,7 @@ sudo mount -a
 sudo systemctl daemon-reload
 df -h
 ```
-![Verifying DB setup](images/dbmount.JPEG)
+![Verifying DB setup](images/dbmount.JPG)
 
 Excellent! Your database server is now set up and ready to go. Let's move on to installing WordPress.
 
@@ -270,7 +270,7 @@ Check available PHP modules:
 ```bash
 sudo dnf module list php
 ```
-![Listing PHP versions](images/modulelistphp.JPEG)
+![Listing PHP versions](images/modulelistphp.JPG)
 
 Enable PHP 8.2:
 ```bash
@@ -316,7 +316,7 @@ sudo cp -R wp-config-sample.php wp-config.php
 cd ..
 sudo cp -R wordpress/. /var/www/html/
 ```
-![WordPress login](images/wordpresssetup.JPEG)
+![WordPress login](images/wordpresssetup.JPG)
 
 6. Now, let's set up MySQL on our DB Server:
 
@@ -334,7 +334,7 @@ sudo systemctl start mysqld
 sudo systemctl enable mysqld
 sudo systemctl status mysqld
 ```
-![Starting MySQL on DB](images/mysqldinstall.JPEG)
+![Starting MySQL on DB](images/mysqldinstall.JPG)
 
 7. Configure the database for WordPress:
 
@@ -342,7 +342,7 @@ Secure your MySQL installation:
 ```bash
 sudo mysql_secure_installation
 ```
-![Securing MySQL](images/createrootuser.JPEG)
+![Securing MySQL](images/createrootuser.JPG)
 
 Create the WordPress database and user:
 ```bash
@@ -355,20 +355,20 @@ FLUSH PRIVILEGES;
 show databases;
 exit
 ```
-![Creating WordPress database](images/createdbanduser.JPEG)
+![Creating WordPress database](images/createdbanduser.JPG)
 
 Set the bind address in MySQL configuration:
 ```bash
 sudo vi /etc/my.cnf
 sudo systemctl restart mysqld
 ```
-![Setting bind address](images/bindaddressdb.JPEG)
+![Setting bind address](images/bindaddressdb.JPG)
 
 8. Configure WordPress to connect to the remote database:
 
 Open MySQL port 3306 on the DB Server EC2 instance, allowing access only from the Web Server's internal IP address.
 
-![Opening MySQL port](images/updatedbSG.JPEG)
+![Opening MySQL port](images/updatedbSG.JPG)
 
 Install MySQL client on the Web Server:
 ```bash
@@ -377,7 +377,7 @@ sudo systemctl start mysqld
 sudo systemctl enable mysqld
 sudo systemctl status mysqld
 ```
-![Installing MySQL client](images/mysqlclient.JPEG)
+![Installing MySQL client](images/mysqlclient.JPG)
 
 Edit the WordPress configuration:
 ```bash
@@ -385,7 +385,7 @@ cd /var/www/html
 sudo vi wp-config.php
 sudo systemctl restart httpd
 ```
-![Editing wp-config](images/updatedwpconfig.JPEG)
+![Editing wp-config](images/updatedwpconfig.JPG)
 
 Disable the Apache default page:
 ```bash
@@ -398,13 +398,13 @@ sudo mysql -h 172.31.40.248 -u wordpress -p
 show databases;
 exit;
 ```
-![Testing DB connection](images/remotedbconnect.JPEG)
+![Testing DB connection](images/remotedbconnect.JPG)
 
 Now, access your WordPress site using your Web Server's public IP address. You should see the WordPress installation page.
 
-![WordPress installed](./images/wordpressweb.JPEG)
-![WordPress login](./images/wordpresslogin_3.JPEG)
-![WordPress website](./images/webpage.JPEG)
+![WordPress installed](./images/wordpressweb.JPG)
+![WordPress login](./images/wordpresslogin_3.JPG)
+![WordPress website](./images/webpage.JPG)
 
 ## Congratulations! 
 You have successfully set up WordPress on AWS using separate Web and DB servers. Your WordPress site is now ready for content creation and customization.
