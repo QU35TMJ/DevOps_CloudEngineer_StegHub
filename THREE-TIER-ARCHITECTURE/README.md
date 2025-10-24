@@ -74,7 +74,7 @@ sudo pvs
 sudo vgcreate webdata-vg /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 sudo vgs
 ```
-![Creating volume group](images/createvg.JPG)
+![Creating volume group](images/createvgs.JPG)
 
 9. Now for the logical volumes (LVs). We will create two: `apps-lv` for our website data, and `logs-lv` for our logs:
 
@@ -91,7 +91,7 @@ sudo lvs
 sudo vgdisplay -v
 lsblk
 ```
-![Detailed VG display](images/vgdisplay.JPG)
+![Detailed LG display](images/lvdisplay.JPG)
 ![Updated block device list](images/lsblklv.JPG)
 
 Now, let us format these volumes with ext4 filesystem:
@@ -190,7 +190,7 @@ lsblk
 sudo yum install lvm2 -y
 sudo lvmdiskscan
 ```
-![Installing LVM](images/diskscan.JPG)
+![Installing LVM](images/diskscandb.JPG)
 
 7. Let's create physical volumes (PVs) from our partitions:
 
@@ -206,7 +206,7 @@ sudo pvs
 sudo vgcreate database-vg /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 sudo vgs
 ```
-![Creating volume group](images/createvgdb.JPG)
+![Creating volume group](images/createvgsdb.JPG)
 
 9. Now for the logical volumes (LVs). We will create `db-lv` for our database data:
 
@@ -264,7 +264,7 @@ sudo yum install wget httpd php-fpm php-json
 
 ```bash
 sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-sudo yum install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-9.rpm
+sudo yum install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-10.0.rpm
 ```
 Check available PHP modules:
 ```bash
@@ -326,7 +326,8 @@ sudo yum update -y
 ```
 Install MySQL Server:
 ```bash
-sudo yum install mysql-server -y
+sudo yum install https://dev.mysql.com/get/mysql84-community-release-el10-1.noarch.rpm
+sudo yum install mysql-community-server -y
 ```
 Start and enable MySQL:
 ```bash
@@ -338,9 +339,10 @@ sudo systemctl status mysqld
 
 7. Configure the database for WordPress:
 
-Secure your MySQL installation:
+Secure your MySQL installation and get the preset root password to allow reset.
 ```bash
 sudo mysql_secure_installation
+sudo grep 'temporary password' /var/log/mysqld.log 
 ```
 ![Securing MySQL](images/createrootuser.JPG)
 
@@ -368,16 +370,17 @@ sudo systemctl restart mysqld
 
 Open MySQL port 3306 on the DB Server EC2 instance, allowing access only from the Web Server's internal IP address.
 
-![Opening MySQL port](images/updatedbSG.JPG)
+![Opening MySQL port](images/updateddbSG.JPG)
 
 Install MySQL client on the Web Server:
 ```bash
-sudo yum install mysql-server
+sudo dnf install https://dev.mysql.com/get/mysql84-community-release-el10-1.noarch.rpm -y
+sudo yum install mysql-community-client -y
 sudo systemctl start mysqld
 sudo systemctl enable mysqld
 sudo systemctl status mysqld
 ```
-![Installing MySQL client](images/mysqlclient.JPG)
+![Installing MySQL client](images/msqlclient.JPG)
 
 Edit the WordPress configuration:
 ```bash
@@ -385,7 +388,7 @@ cd /var/www/html
 sudo vi wp-config.php
 sudo systemctl restart httpd
 ```
-![Editing wp-config](images/updatedwpconfig.JPG)
+![Editing wp-config](images/updatewpconfig.JPG)
 
 Disable the Apache default page:
 ```bash
@@ -403,13 +406,13 @@ exit;
 Now, access your WordPress site using your Web Server's public IP address. You should see the WordPress installation page.
 
 ![WordPress installed](./images/wordpressweb.JPG)
-![WordPress login](./images/wordpresslogin_3.JPG)
+![WordPress login](./images/wordpresslogin.JPG)
 ![WordPress website](./images/webpage.JPG)
 
 ## Congratulations! 
 You have successfully set up WordPress on AWS using separate Web and DB servers. Your WordPress site is now ready for content creation and customization.
 
-##Challenges 
+## Challenges 
 I faced a couple of challenges and here is how i troubleshouted them:
 1. I used t3.micro hence my EBS were nvme and not Xen drivers as expected in t2.micro
 2. My RHEL is version 10 and often got the Error: Problem: conflicting requests - nothing provides system-release(releasever) = 9 needed by remi-release-9.6-1.el9.remi.noarch from @commandline when installing from the Remi repository. To fix it, I ensured that the repo reads from 10.0 package variant from their website.
