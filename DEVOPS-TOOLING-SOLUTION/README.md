@@ -57,7 +57,7 @@ sudo parted /dev/nvme2n1 --script mklabel gpt mkpart primary xfs 0% 100%
 sudo parted /dev/nvme3n1 --script mklabel gpt mkpart primary xfs 0% 100%
 ```
 
-![Partition creation](images/volpartition.JPG)
+![Partition creation](images/volpartitions.JPG)
 
 Now, let's view the newly configured partitions:
 
@@ -65,7 +65,7 @@ Now, let's view the newly configured partitions:
 lsblk
 ```
 
-![View partitions](images/lsblkpartitioned.JPG)
+![View partitions](images/lsblkpartioned.JPG)
 
 #### Install LVM2
 
@@ -383,9 +383,9 @@ Then run: `nc -zv [private IP of nfs server] 2049` to review connection settings
 
 - Verify that the NFS was mounted successfully by running `df -h`.
 
-![df -h webserver 1](image/mountnfstowebserver.JPG)
-![df -h webserver 2](image/mountnfstowebserver2.JPG))
-![df -h webserver 3](image/mountnfstowebserver3.JPG))
+![df -h webserver 1](images/mountnfstowebserver.JPG)
+![df -h webserver 2](images/mountnfstoserver2.JPG))
+![df -h webserver 3](images/mountnfstoserver3.JPG))
 
 - Ensure that the changes persist on the web servers after reboot by editing the `/etc/fstab` and adding the following content:
 
@@ -472,7 +472,7 @@ sudo cp -R tooling/html/. /var/www/html/
 
 The git clone and copy command was run on only `webserver1` . The content of the `/var/www/html` is found in the remaining two servers as shown in the images below:
 
-![content of html folder server2](images/toolinghtmlserver2)
+![content of html folder server2](images/toolinghtmlserver2.JPG)
 
 
 *Hint*:
