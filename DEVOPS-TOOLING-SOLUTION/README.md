@@ -517,7 +517,7 @@ sudo setsebool -P httpd_execmem on
 ```sh
 $db = mysqli_connect('172.31.23.85', 'webaccess', 'Passw0rd123#', 'tooling');
 ```
-![update db details](images/updatefunctions)
+![update db details](images/updatefunctions.JPG)
 
 - We will install mysql client on the webservers. Run the following commands to install mysql client on the servers. (You may need to install `wget` utility first: `sudo yum install wget -y`)
 
@@ -556,7 +556,7 @@ INSERT INTO `users` (`username`, `password`, `email`, `user_type`, `status`)
 VALUES ('myuser', '5f4dcc3b5aa765d61d8327deb882cf99', 'user@mail.com', 'admin', '1');
 ```
 
-![adding user](images/addusertotooling.JPG)
+![adding user](images/addusertotoolingdb.JPG)
 
 
 - When we open the website in our web browser at `http://[web-server-Public-IP]/index.php` , we should be able to login with the `myuser` user
