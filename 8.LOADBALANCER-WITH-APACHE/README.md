@@ -148,10 +148,10 @@ Open two SSH consoles, one for each Web Server, and run:
 sudo tail -f /var/log/httpd/access_log
 ```
 Web Server 1 ```access_log```
-![web1 accesslog](images/accesslogweb1.JPG)
+![web1 accesslog](images/accesslogsweb1.JPG)
 
 Web Server 2 ```access_log```
-![web2 accesslog](images/accesslogweb2.JPG)
+![web2 accesslog](images/accesslogsweb2.JPG)
 
 Refresh the browser page several times. You should see new records appear in each web server's log files. The number of requests to each server should be approximately the same since we set the `loadfactor` to the same value for both servers.
 
